@@ -101,10 +101,10 @@ void Model::generateRequest() {
     if (bank->requests.size() < maxQueueLength) {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<> mon(50, 3000);
-        std::uniform_real_distribution<> tm(2, 30);
+        std::uniform_int_distribution<> mon(50, 3000);
+        std::uniform_int_distribution<> tm(2, 30);
         number++;
-        Request req(std::round(tm(gen)), std::round(mon(gen)), time, number);
+        Request req(tm(gen), mon(gen), time, number);
         bank->requests.push(req);
     }
     else {
@@ -122,8 +122,8 @@ void Model::generateTimeUntilRequest() {
     else {
         b = 10;
     };
-    std::uniform_real_distribution<> dis(0.0, b);
-    timeUntilRequest = std::round(dis(gen));
+    std::uniform_int_distribution<> dis(0.0, b);
+    timeUntilRequest = dis(gen);
 };
 void Model::statistic() {};
 
